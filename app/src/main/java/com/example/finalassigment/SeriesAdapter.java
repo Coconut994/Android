@@ -58,8 +58,8 @@ public class SeriesAdapter extends BaseAdapter {
         tvSummary.setText(model.getSummary());
 
         convertView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailActivity.class);
-            intent.putExtra("image", model.getImage());
+            Intent intent = new Intent(context, MainMangaActivity.class);
+            intent.putExtra("story_id", model.getId());
             intent.putExtra("name", model.getName());
             intent.putExtra("category", model.getCategory());
             intent.putExtra("likes", model.getLikes());

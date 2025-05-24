@@ -3,6 +3,7 @@ package com.example.finalassigment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,27 +15,29 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySeriesAdapter extends ArrayAdapter<Series> {
+public class MySeriesAdapter extends ArrayAdapter<MySeries> {
     private Context context;
-    private List<Series> seriesList;
+    private List<MySeries> seriesList;
     private boolean deleteMode = false;
     private TruyenDatabaseHelper dbHelper;
+    private String tableName; // Để biết adapter đang làm việc với bảng nào
 
-    public MySeriesAdapter(Context context, List<Series> objects) {
+    public MySeriesAdapter(Context context, List<MySeries> objects, String tableName) {
         super(context, 0, objects);
         this.context = context;
         this.seriesList = objects;
         this.dbHelper = new TruyenDatabaseHelper(context);
-        this.dbHelper.insertTruyen();
+        this.tableName = tableName;
     }
 
     public void setDeleteMode(boolean deleteMode) {
         this.deleteMode = deleteMode;
         if (!deleteMode) {
-            for (Series series : seriesList) {
+            for (MySeries series : seriesList) {
                 series.setChecked(false);
                 series.setCheckBoxVisible(false);
             }
@@ -46,9 +49,9 @@ public class MySeriesAdapter extends ArrayAdapter<Series> {
         return deleteMode;
     }
 
-    public List<Series> getSelectedItems() {
-        List<Series> selectedItems = new ArrayList<>();
-        for (Series series : seriesList) {
+    public List<MySeries> getSelectedItems() {
+        List<MySeries> selectedItems = new ArrayList<>();
+        for (MySeries series : seriesList) {
             if (series.isChecked()) {
                 selectedItems.add(series);
             }
@@ -65,7 +68,7 @@ public class MySeriesAdapter extends ArrayAdapter<Series> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Series series = getItem(position);
+        MySeries series = getItem(position);
         ViewHolder holder;
 
         if (convertView == null) {
@@ -116,12 +119,13 @@ public class MySeriesAdapter extends ArrayAdapter<Series> {
                         .setTitle("Xóa truyện")
                         .setMessage("Bạn có chắc muốn xóa truyện \"" + series.getTenTruyen() + "\" không?")
                         .setPositiveButton("Xóa", (dialog, which) -> {
-                            if (dbHelper.deleteTruyen(series.getId())) {
+                            Log.d("SeriesAdapter", "Attempting to delete ID: " + series.getId() + " from table: " + tableName);
+                            if (dbHelper.deleteTruyen(series.getId(), tableName)) {
                                 seriesList.remove(series);
                                 notifyDataSetChanged();
                                 Toast.makeText(context, "Đã xóa truyện", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Xóa thất bại, kiểm tra ID hoặc bảng", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("Hủy", null)
@@ -145,17 +149,34 @@ public class MySeriesAdapter extends ArrayAdapter<Series> {
         return convertView;
     }
 
-    private void openTruyenDetail(Series series) {
+    private void openTruyenDetail(MySeries series) {
         Context context = getContext();
         if (context instanceof Activity) {
             // Lưu vào danh sách truy cập gần đây
-//            TruyenDatabaseHelper dbHelper = new TruyenDatabaseHelper(context);
-//            dbHelper.addRecentTruyen(series.getId(), series.getTenTruyen());
+            if (dbHelper != null) {
+                series.setLastAccessed(System.currentTimeMillis());
+                dbHelper.addRecentTruyen(series.getId());
+            }
+
+            ((MySeriesActivity) context).refreshAllFragments();
 
             // Mở chi tiết
-            Intent intent = new Intent(context, TruyenDetailActivity.class);
-            intent.putExtra("truyen_id", series.getId());
+            Intent intent = new Intent(context, MainMangaActivity.class);
+            intent.putExtra("story_id", (Serializable) series.getId());
             context.startActivity(intent);
+        } else {
+            Log.e("SeriesAdapter", "Context is not an Activity, cannot start TruyenDetailActivity");
+        }
+    }
+    private void openTruyenDetail(int id) {
+        Context context = getContext();
+        if (context instanceof Activity) {
+            // Lưu vào danh sách truy cập gần đây
+            if (dbHelper != null) {
+                dbHelper.addRecentTruyen(id);
+            }
+        } else {
+            Log.e("SeriesAdapter", "Context is not an Activity, cannot start TruyenDetailActivity");
         }
     }
 }

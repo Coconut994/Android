@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 public class MainMangaActivity extends AppCompatActivity {
-    Button btnPreview, btnEpisodes, btnRecommend;
+    Button btnPreview, btnEpisodes, btnRecommend, btnSubcribed;
     private ImageView headerImage, btnBackSeries;
 
     private int currentMangaId = 1;
@@ -27,11 +27,22 @@ public class MainMangaActivity extends AppCompatActivity {
         btnEpisodes  = findViewById(R.id.btn_episodes);
         btnRecommend = findViewById(R.id.btn_recommend);
         btnBackSeries = findViewById(R.id.btnBackSeries);
+        btnSubcribed = findViewById(R.id.btn_subscribe);
+        btnSubcribed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainMangaActivity.this, "Chờ chúng mình hoàn thiện chức năng nhé T.T", Toast.LENGTH_SHORT).show();
+            }
+        });
         Intent myIntent = getIntent();
 
 //        // Show ảnh bìa mặc định
 
         currentMangaId = myIntent.getIntExtra("story_id",2);
+        if(currentMangaId > 2){
+            currentMangaId = 1;
+            Toast.makeText(this, "Truyện đang cập nhật nhé mí\nXem tạm Anya nhé >.< !", Toast.LENGTH_SHORT).show();
+        }
 
 //        else currentMangaId =2;
         MangaDatabaseHelper dbHelper = new MangaDatabaseHelper(this);

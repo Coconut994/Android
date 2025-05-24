@@ -30,6 +30,7 @@ public class TrendingFragment extends Fragment {
         List<SeriesModel> trendingList = getTrendingSeries();
         SeriesAdapter adapter = new SeriesAdapter(getContext(), trendingList);
         listView.setAdapter(adapter);
+
         return view;
     }
 

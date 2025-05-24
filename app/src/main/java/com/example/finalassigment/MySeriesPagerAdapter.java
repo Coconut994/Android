@@ -5,10 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.finalassigment.DownloadsFragment;
-import com.example.finalassigment.RecentFragment;
-import com.example.finalassigment.SubscribedFragment;
-import com.example.finalassigment.UnlockedFragment;
 
 public class MySeriesPagerAdapter extends FragmentStateAdapter {
     private static final int TAB_COUNT = 4; // Định nghĩa số lượng tab

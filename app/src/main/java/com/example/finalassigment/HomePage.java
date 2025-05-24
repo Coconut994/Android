@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -30,24 +31,26 @@ public class HomePage extends AppCompatActivity {
     private TextView tvTrending, tvPopular;
     private TextView edtSearch;
     private ImageView imgSearch;
+    private TruyenDatabaseHelper truyenDatabaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        truyenDatabaseHelper = new TruyenDatabaseHelper(this);
 //        dbHelper = new DatabaseHelper(getContext());
         // Thiết lập RecyclerView cũ
         edtSearch = findViewById(R.id.searchEditText);
         edtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomePage.this, "Chuc nang dang duoc phat trien", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomePage.this, "Chờ Dev của chúng mình cập nhật nhé >.<", Toast.LENGTH_SHORT).show();
             }
         });
         imgSearch = findViewById(R.id.searchIcon);
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HomePage.this, "Chuc nang dang duoc phat trien", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomePage.this, "Kĩ năng của chúng mình chưa làm được á >.<", Toast.LENGTH_SHORT).show();
             }
         });
         RecyclerView rvTrending = findViewById(R.id.rvTrending);
@@ -63,14 +66,15 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onItemClick(Story story) {
                 // Xử lý click vào item Trending
+                truyenDatabaseHelper.addRecentTruyen(story.getId());
                 Intent intent = new Intent(HomePage.this, MainMangaActivity.class);
                 intent.putExtra("story_id", story.getId());
                 intent.putExtra("story_title", story.getTitle());
                 startActivity(intent);
+
             }
         });
         rvTrending.setAdapter(trendingAdapter);
-
 
         RecyclerView rvPopular = findViewById(R.id.rvPopular);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
@@ -88,6 +92,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onItemClick(Story story) {
                 // Xử lý click vào item Trending
+                truyenDatabaseHelper.addRecentTruyen(story.getId());
                 Intent intent = new Intent(HomePage.this, MainMangaActivity.class);
                 intent.putExtra("story_id", story.getId());
                 intent.putExtra("story_title", story.getTitle());
@@ -133,7 +138,17 @@ public class HomePage extends AppCompatActivity {
                     startActivity(new Intent(HomePage.this, MySeriesActivity.class));
                 } else if (id == R.id.nav_more) {
 //                    selectedFragment = new MoreFragment();
-                    Toast.makeText(HomePage.this, "Chuc nang dang duoc phat trien", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(HomePage.this, "Chuc nang dang duoc phat trien", Toast.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(HomePage.this)
+                            .setTitle("Đăng xuất tài khoản!")
+                            .setMessage("Ở lại đi mà! Hãy cùng mình đi tiếp câu chuyện còn dang dở >.<")
+                            .setPositiveButton("Đăng xuất", (dialog, which) -> {
+                                startActivity(new Intent(HomePage.this, login.class));
+                                finish();
+                            })
+                            .setNegativeButton("Ở lại", null)
+                            .setCancelable(true)
+                            .show();
                 }
                 return loadFragment(selectedFragment);
             }

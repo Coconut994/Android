@@ -7,12 +7,52 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TruyenDatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "truyendb";
-    private static final int DATABASE_VERSION = 3;
-    private static final String TABLE_NAME = "truyen";
+    private static final String DATABASE_NAME = "truyen.db";
+    private static final int DATABASE_VERSION = 2; // Tăng version để chạy onUpgrade
+    private static final String TABLE_TRUYEN = "truyen";
+    private static final String TABLE_RECENT_TRUYENS = "recent_truyens";
+    private static final String TABLE_DOWNLOADED_TRUYENS = "downloaded_truyens";
+    private static final String TABLE_SUBSCRIBED_TRUYENS = "subscribed_truyens";
+    private static final String TABLE_UNLOCKED_TRUYENS = "unlocked_truyens";
     private static final int MAX_RECENT_TRUYENS = 20;
+
+    // Bảng truyen chính
+    private static final String CREATE_TABLE_TRUYEN = "CREATE TABLE " + TABLE_TRUYEN + " (" +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "ten TEXT NOT NULL, " +
+            "trangthai TEXT NOT NULL, " +
+            "isChecked INTEGER DEFAULT 0, " +
+            "isCheckBoxVisible INTEGER DEFAULT 0, " +
+            "image INTEGER DEFAULT 0" +
+            ")";
+
+    // Bảng recent_truyens
+    private static final String CREATE_TABLE_RECENT_TRUYENS = "CREATE TABLE " + TABLE_RECENT_TRUYENS + " (" +
+            "truyen_id INTEGER PRIMARY KEY, " +
+            "last_accessed INTEGER NOT NULL, " +
+            "FOREIGN KEY(truyen_id) REFERENCES " + TABLE_TRUYEN + "(id)" +
+            ")";
+
+    // Bảng downloaded_truyens
+    private static final String CREATE_TABLE_DOWNLOADED_TRUYENS = "CREATE TABLE " + TABLE_DOWNLOADED_TRUYENS + " (" +
+            "truyen_id INTEGER PRIMARY KEY, " +
+            "FOREIGN KEY(truyen_id) REFERENCES " + TABLE_TRUYEN + "(id)" +
+            ")";
+
+    // Bảng subscribed_truyens
+    private static final String CREATE_TABLE_SUBSCRIBED_TRUYENS = "CREATE TABLE " + TABLE_SUBSCRIBED_TRUYENS + " (" +
+            "truyen_id INTEGER PRIMARY KEY, " +
+            "FOREIGN KEY(truyen_id) REFERENCES " + TABLE_TRUYEN + "(id)" +
+            ")";
+
+    // Bảng unlocked_truyens
+    private static final String CREATE_TABLE_UNLOCKED_TRUYENS = "CREATE TABLE " + TABLE_UNLOCKED_TRUYENS + " (" +
+            "truyen_id INTEGER PRIMARY KEY, " +
+            "FOREIGN KEY(truyen_id) REFERENCES " + TABLE_TRUYEN + "(id)" +
+            ")";
 
     public TruyenDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -20,207 +60,299 @@ public class TruyenDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE truyen (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "ten TEXT, " +
-                "trangthai TEXT, " +
-                "isChecked INTEGER DEFAULT 0, " +
-                "isCheckBoxVisible INTEGER DEFAULT 0, " +
-                "lastAccessed LONG DEFAULT 0, " +
-                "image INTEGER DEFAULT 0)";
-        db.execSQL(createTable);
-
+        db.execSQL(CREATE_TABLE_TRUYEN);
+        db.execSQL(CREATE_TABLE_RECENT_TRUYENS);
+        db.execSQL(CREATE_TABLE_DOWNLOADED_TRUYENS);
+        db.execSQL(CREATE_TABLE_SUBSCRIBED_TRUYENS);
+        db.execSQL(CREATE_TABLE_UNLOCKED_TRUYENS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS truyen");
-        onCreate(db);
-    }
+        if (oldVersion < 2) {
+            // Chuyển dữ liệu từ cấu trúc cũ sang cấu trúc mới
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECENT_TRUYENS);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOWNLOADED_TRUYENS);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUBSCRIBED_TRUYENS);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_UNLOCKED_TRUYENS);
+            db.execSQL(CREATE_TABLE_RECENT_TRUYENS);
+            db.execSQL(CREATE_TABLE_DOWNLOADED_TRUYENS);
+            db.execSQL(CREATE_TABLE_SUBSCRIBED_TRUYENS);
+            db.execSQL(CREATE_TABLE_UNLOCKED_TRUYENS);
 
-    public ArrayList<Series> getAllTruyen() {
-        ArrayList<Series> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM truyen", null);
-
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String ten = cursor.getString(1);
-            String trangthai = cursor.getString(2);
-            boolean isChecked = cursor.getInt(3) == 1;
-            boolean isCheckBoxVisible = cursor.getInt(4) == 1;
-            long lastAccessed = cursor.getLong(5);
-            int image = cursor.getInt(6);
-            Series series = new Series(id, ten, trangthai);
-            series.setChecked(isChecked);
-            series.setCheckBoxVisible(isCheckBoxVisible);
-            series.setLastAccessed(lastAccessed);
-            series.setImage(image);
-            list.add(series);
-        }
-
-        cursor.close();
-        return list;
-    }
-
-    public ArrayList<Series> getHaiTruyenDauTien() {
-        ArrayList<Series> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM truyen LIMIT 2", null);
-
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String ten = cursor.getString(1);
-            String trangthai = cursor.getString(2);
-            boolean isChecked = cursor.getInt(3) == 1;
-            boolean isCheckBoxVisible = cursor.getInt(4) == 1;
-            long lastAccessed = cursor.getLong(5);
-            int image = cursor.getInt(6);
-            Series series = new Series(id, ten, trangthai);
-            series.setChecked(isChecked);
-            series.setCheckBoxVisible(isCheckBoxVisible);
-            series.setLastAccessed(lastAccessed);
-            series.setImage(image);
-            list.add(series);
-        }
-        cursor.close();
-        return list;
-    }
-
-    public ArrayList<Series> getRecentTruyen() {
-        ArrayList<Series> list = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM truyen WHERE lastAccessed > 0 ORDER BY lastAccessed DESC LIMIT ?",
-                new String[]{String.valueOf(MAX_RECENT_TRUYENS)});
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String ten = cursor.getString(1);
-            String trangthai = cursor.getString(2);
-            boolean isChecked = cursor.getInt(3) == 1;
-            boolean isCheckBoxVisible = cursor.getInt(4) == 1;
-            long lastAccessed = cursor.getLong(5);
-            int image = cursor.getInt(6);
-            Series series = new Series(id, ten, trangthai);
-            series.setChecked(isChecked);
-            series.setCheckBoxVisible(isCheckBoxVisible);
-            series.setLastAccessed(lastAccessed);
-            series.setImage(image);
-            list.add(series);
-        }
-
-        cursor.close();
-        return list;
-    }
-
-    public boolean deleteTruyen(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        int result = db.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(id)});
-        return result > 0;
-    }
-
-    public void updateLastAccessed(int id, long timestamp) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        // Cập nhật lastAccessed cho truyện
-        ContentValues values = new ContentValues();
-        values.put("lastAccessed", timestamp);
-        db.update(TABLE_NAME, values, "id = ?", new String[]{String.valueOf(id)});
-        // Kiểm tra số lượng truyện có lastAccessed > 0
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE lastAccessed > 0", null);
-        if (cursor.moveToFirst()) {
-            int count = cursor.getInt(0);
-            if (count > MAX_RECENT_TRUYENS) {
-                // Xóa các truyện xa nhất
-                db.execSQL("UPDATE " + TABLE_NAME + " SET lastAccessed = 0 WHERE id IN (" +
-                                "SELECT id FROM " + TABLE_NAME + " WHERE lastAccessed > 0 " +
-                                "ORDER BY lastAccessed ASC LIMIT ?)",
-                        new String[]{String.valueOf(count - MAX_RECENT_TRUYENS)});
+            // Chuyển dữ liệu từ cột lastAccessed trong bảng truyen (nếu có)
+            Cursor cursor = db.rawQuery("SELECT id, lastAccessed FROM " + TABLE_TRUYEN + " WHERE lastAccessed > 0", null);
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(0);
+                long lastAccessed = cursor.getLong(1);
+                ContentValues values = new ContentValues();
+                values.put("truyen_id", id);
+                values.put("last_accessed", lastAccessed);
+                db.insert(TABLE_RECENT_TRUYENS, null, values);
             }
+            cursor.close();
+
+            // Xóa cột lastAccessed từ bảng truyen
+            db.execSQL("CREATE TABLE temp_truyen AS SELECT id, ten, trangthai, isChecked, isCheckBoxVisible, image FROM " + TABLE_TRUYEN);
+            db.execSQL("DROP TABLE " + TABLE_TRUYEN);
+            db.execSQL("ALTER TABLE temp_truyen RENAME TO " + TABLE_TRUYEN);
         }
-        cursor.close();
     }
 
     public void insertTruyen() {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values1 = new ContentValues();
-        values1.put("ten", "Dế Mèn Phiêu Lưu Ký");
-        values1.put("trangthai", "Đã đọc");
-        values1.put("isChecked", 0);
-        values1.put("isCheckBoxVisible", 0);
-        values1.put("lastAccessed", 0);
-        values1.put("image", R.drawable.anhbongbong);
-        db.insert(TABLE_NAME, null, values1);
+        ContentValues values = new ContentValues();
 
-        ContentValues values2 = new ContentValues();
-        values2.put("ten", "Tắt Đèn");
-        values2.put("trangthai", "Chưa đọc");
-        values2.put("isChecked", 0);
-        values2.put("isCheckBoxVisible", 0);
-        values2.put("lastAccessed", 0);
-        values2.put("image", R.drawable.anhcay);
-        db.insert(TABLE_NAME, null, values2);
+        // Thêm truyện vào bảng truyen
+        values.put("ten", "Dế Mèn Phiêu Lưu Ký");
+        values.put("trangthai", "Đã đọc");
+        values.put("image", R.drawable.anhbongbong);
+        long id1 = db.insert(TABLE_TRUYEN, null, values);
 
-        ContentValues values3 = new ContentValues();
-        values3.put("ten", "Chí Phèo");
-        values3.put("trangthai", "Đang đọc");
-        values3.put("isChecked", 0);
-        values3.put("isCheckBoxVisible", 0);
-        values3.put("lastAccessed", 0);
-        values3.put("image", R.drawable.dacvu);
-        db.insert(TABLE_NAME, null, values3);
+        values.clear();
+        values.put("ten", "Tắt Đèn");
+        values.put("trangthai", "Chưa đọc");
+        values.put("image", R.drawable.anhcay);
+        long id2 = db.insert(TABLE_TRUYEN, null, values);
 
-        ContentValues values4 = new ContentValues();
-        values4.put("ten", "Doraemon");
-        values4.put("trangthai", "Đã đọc");
-        values4.put("isChecked", 0);
-        values4.put("isCheckBoxVisible", 0);
-        values4.put("lastAccessed", 0);
-        values4.put("image", R.drawable.doraemon);
-        db.insert(TABLE_NAME, null, values4);
+        values.clear();
+        values.put("ten", "Chí Phèo");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.dacvu);
+        long id3 = db.insert(TABLE_TRUYEN, null, values);
 
-        ContentValues values5 = new ContentValues();
-        values5.put("ten", "Người con gái nam xương");
-        values5.put("trangthai", "Đã đọc");
-        values5.put("isChecked", 0);
-        values5.put("isCheckBoxVisible", 0);
-        values5.put("lastAccessed", 0);
-        values5.put("image", R.drawable.ti_xung);
-        db.insert(TABLE_NAME, null, values5);
+        values.clear();
+        values.put("ten", "Thám Tử Lừng Danh Conan");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.chim);
+        long id4 = db.insert(TABLE_TRUYEN, null, values);
 
-        ContentValues values6 = new ContentValues();
-        values6.put("ten", "Cuộc phiêu lưu kì thú");
-        values6.put("trangthai", "Đã đọc");
-        values6.put("isChecked", 0);
-        values6.put("isCheckBoxVisible", 0);
-        values6.put("lastAccessed", 0);
-        values6.put("image", R.drawable.anhcay);
-        db.insert(TABLE_NAME, null, values6);
+        values.clear();
+        values.put("ten", "Công Nghệ Người Máy");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.congnghe);
+        long id5 = db.insert(TABLE_TRUYEN, null, values);
 
-        ContentValues values7 = new ContentValues();
-        values7.put("ten", "Hành trình trở thành ma vương");
-        values7.put("trangthai", "Đã đọc");
-        values7.put("isChecked", 0);
-        values7.put("isCheckBoxVisible", 0);
-        values7.put("lastAccessed", 0);
-        values7.put("image", R.drawable.congnghe);
-        db.insert(TABLE_NAME, null, values7);
+        values.clear();
+        values.put("ten", "Bạn Trai Tôi Vô Địch");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.damsen);
+        long id6 = db.insert(TABLE_TRUYEN, null, values);
 
-        ContentValues values8 = new ContentValues();
-        values8.put("ten", "Ta là bất khả chiến bại");
-        values8.put("trangthai", "Đã đọc");
-        values8.put("isChecked", 0);
-        values8.put("isCheckBoxVisible", 0);
-        values8.put("lastAccessed", 0);
-        values8.put("image", R.drawable.goku);
-        db.insert(TABLE_NAME, null, values8);
+        values.clear();
+        values.put("ten", "Doraemon");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.doraemon);
+        long id7 = db.insert(TABLE_TRUYEN, null, values);
 
-        ContentValues values9 = new ContentValues();
-        values9.put("ten", "Bố tôi là đặc vụ");
-        values9.put("trangthai", "Đã đọc");
-        values9.put("isChecked", 0);
-        values9.put("isCheckBoxVisible", 0);
-        values9.put("lastAccessed", 0);
-        values9.put("image", R.drawable.chim);
-        db.insert(TABLE_NAME, null, values9);
-        android.util.Log.d("TruyenDatabaseHelper", "Đã chèn 9 truyện mẫu");
+        values.clear();
+        values.put("ten", "Dragon Ball Super");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.goku);
+        long id8 = db.insert(TABLE_TRUYEN, null, values);
+
+
+
+        // Thêm vào recent_truyens
+        values.clear();
+        values.put("truyen_id", id1);
+        values.put("last_accessed", System.currentTimeMillis() - 1000);
+        db.insert(TABLE_RECENT_TRUYENS, null, values);
+
+        values.clear();
+        values.put("truyen_id", id2);
+        values.put("last_accessed", System.currentTimeMillis() - 5000);
+        db.insert(TABLE_RECENT_TRUYENS, null, values);
+
+        // Thêm vào downloaded_truyens
+        values.clear();
+        values.put("truyen_id", id2);
+        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
+
+        values.clear();
+        values.put("truyen_id", id4);
+        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
+
+        values.clear();
+        values.put("truyen_id", id5);
+        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
+
+        values.clear();
+        values.put("truyen_id", id6);
+        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
+
+        values.clear();
+        values.put("truyen_id", id3);
+        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
+
+        // Thêm vào subscribed_truyens và unlocked_truyens
+        values.clear();
+        values.put("truyen_id", id2);
+        db.insert(TABLE_SUBSCRIBED_TRUYENS, null, values);
+
+        values.clear();
+        values.put("truyen_id", id3);
+        db.insert(TABLE_UNLOCKED_TRUYENS, null, values);
+
+        db.close();
+    }
+
+    public void updateLastAccessed(int truyenId, long timestamp) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("truyen_id", truyenId);
+        values.put("last_accessed", timestamp);
+
+        // Kiểm tra xem truyen_id đã tồn tại trong recent_truyens chưa
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_RECENT_TRUYENS + " WHERE truyen_id = ?",
+                new String[]{String.valueOf(truyenId)});
+        if (cursor.moveToFirst()) {
+            // Cập nhật nếu đã tồn tại
+            db.update(TABLE_RECENT_TRUYENS, values, "truyen_id = ?", new String[]{String.valueOf(truyenId)});
+        } else {
+            // Thêm mới nếu chưa tồn tại
+            db.insert(TABLE_RECENT_TRUYENS, null, values);
+        }
+        cursor.close();
+
+        // Giới hạn số lượng truyện truy cập gần đây
+        cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_RECENT_TRUYENS, null);
+        if (cursor.moveToFirst()) {
+            int count = cursor.getInt(0);
+            if (count > MAX_RECENT_TRUYENS) {
+                db.execSQL("DELETE FROM " + TABLE_RECENT_TRUYENS + " WHERE truyen_id IN (" +
+                                "SELECT truyen_id FROM " + TABLE_RECENT_TRUYENS + " " +
+                                "ORDER BY last_accessed ASC LIMIT ?)",
+                        new String[]{String.valueOf(count - MAX_RECENT_TRUYENS)});
+            }
+        }
+        cursor.close();
+        db.close();
+    }
+
+    public boolean removeFromRecent(int truyenId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsAffected = db.delete(TABLE_RECENT_TRUYENS, "truyen_id = ?", new String[]{String.valueOf(truyenId)});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    public boolean removeFromDownloads(int truyenId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsAffected = db.delete(TABLE_DOWNLOADED_TRUYENS, "truyen_id = ?", new String[]{String.valueOf(truyenId)});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    public boolean removeFromSubscribed(int truyenId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsAffected = db.delete(TABLE_SUBSCRIBED_TRUYENS, "truyen_id = ?", new String[]{String.valueOf(truyenId)});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    public boolean removeFromUnlocked(int truyenId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsAffected = db.delete(TABLE_UNLOCKED_TRUYENS, "truyen_id = ?", new String[]{String.valueOf(truyenId)});
+        db.close();
+        return rowsAffected > 0;
+    }
+
+    public List<MySeries> getRecentTruyen() {
+        List<MySeries> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT t.* FROM " + TABLE_TRUYEN + " t " +
+                        "INNER JOIN " + TABLE_RECENT_TRUYENS + " rt ON t.id = rt.truyen_id " +
+                        "ORDER BY rt.last_accessed DESC LIMIT ?",
+                new String[]{String.valueOf(MAX_RECENT_TRUYENS)});
+
+        while (cursor.moveToNext()) {
+            MySeries series = new MySeries(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+            series.setImage(cursor.getInt(5));
+            list.add(series);
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
+    public List<MySeries> getDownloadedTruyen() {
+        List<MySeries> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT t.* FROM " + TABLE_TRUYEN + " t " +
+                "INNER JOIN " + TABLE_DOWNLOADED_TRUYENS + " dt ON t.id = dt.truyen_id", null);
+
+        while (cursor.moveToNext()) {
+            MySeries series = new MySeries(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+            series.setImage(cursor.getInt(5));
+            list.add(series);
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
+    public List<MySeries> getSubscribedTruyen() {
+        List<MySeries> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT t.* FROM " + TABLE_TRUYEN + " t " +
+                "INNER JOIN " + TABLE_SUBSCRIBED_TRUYENS + " st ON t.id = st.truyen_id", null);
+
+        while (cursor.moveToNext()) {
+            MySeries series = new MySeries(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+            series.setImage(cursor.getInt(5));
+            list.add(series);
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
+    public List<MySeries> getUnlockedTruyen() {
+        List<MySeries> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT t.* FROM " + TABLE_TRUYEN + " t " +
+                "INNER JOIN " + TABLE_UNLOCKED_TRUYENS + " ut ON t.id = ut.truyen_id", null);
+
+        while (cursor.moveToNext()) {
+            MySeries series = new MySeries(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+            series.setImage(cursor.getInt(5));
+            list.add(series);
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+    public void addRecentTruyen(int truyenId) {
+        updateLastAccessed(truyenId, System.currentTimeMillis());
+    }
+
+    public boolean deleteTruyen(int id, String tableName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsDeleted = db.delete(tableName,  "truyen_id = ?", new String[]{String.valueOf(id)});
+        db.close();
+        return rowsDeleted > 0;
+    }
+    public List<MySeries> getAllTruyen() {
+        List<MySeries> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TRUYEN, null);
+
+        while (cursor.moveToNext()) {
+            MySeries series = new MySeries(
+                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("ten")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("trangthai"))
+            );
+            series.setChecked(cursor.getInt(cursor.getColumnIndexOrThrow("isChecked")) == 1);
+            series.setCheckBoxVisible(cursor.getInt(cursor.getColumnIndexOrThrow("isCheckBoxVisible")) == 1);
+            series.setImage(cursor.getInt(cursor.getColumnIndexOrThrow("image")));
+            list.add(series);
+        }
+
+        cursor.close();
+        db.close();
+        return list;
     }
 }

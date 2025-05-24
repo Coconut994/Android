@@ -10,6 +10,7 @@ public class TruyenDetailActivity extends AppCompatActivity {
     private TextView tvTenTruyen;
     private TextView tvTrangThai;
     private ImageView item_image;
+    private TruyenDatabaseHelper dbhelper;
 
 
 
@@ -21,13 +22,16 @@ public class TruyenDetailActivity extends AppCompatActivity {
         item_image = findViewById(R.id.imageView_detail);
         tvTenTruyen = findViewById(R.id.tvTenTruyenDetail);
         tvTrangThai = findViewById(R.id.tvTrangThaiDetail);
-
+        dbhelper = new TruyenDatabaseHelper(TruyenDetailActivity.this);
         // Nhận dữ liệu từ Intent
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
-            String tenTruyen = extras.getString("tenTruyen");
-            String trangThai = extras.getString("trangThai");
-            int image = extras.getInt("image");
+            MySeries series  = (MySeries) extras.getSerializable("series");
+
+            String tenTruyen = series.getTenTruyen();
+            String trangThai = series.getTrangThai()    ;
+            int image = series.getImage();
 
             // Hiển thị dữ liệu
             item_image.setImageResource(image != 0 ? image : R.drawable.ic_launcher_background);

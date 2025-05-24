@@ -6,103 +6,77 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-//import com.example.novelreader.MySeriesAdapter;
-//import com.example.novelreader.R;
-//import com.example.novelreader.Series;
-//import com.example.novelreader.TruyenDatabaseHelper;
-//import com.example.novelreader.TruyenDetailActivity;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UnlockedFragment extends Fragment {
-    private TruyenDatabaseHelper dbHelper;
     private MySeriesAdapter adapter;
-    private ListView listView;
-    private List<Series> seriesList;
+    private TruyenDatabaseHelper dbHelper;
+    private List<MySeries> unlockedTruyens;
+    private MySeriesActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment, container, false);
-
-        dbHelper = new TruyenDatabaseHelper(getContext());
-        if (dbHelper.getAllTruyen().isEmpty()) {
-            dbHelper.insertTruyen();
-            Log.d("DownloadsFragment", "Đã chèn truyện mẫu");
+        if (getActivity() instanceof MySeriesActivity) {
+            activity = (MySeriesActivity) getActivity();
         } else {
-            Log.d("DownloadsFragment", "Bảng đã có dữ liệu, số lượng: " + dbHelper.getAllTruyen().size());
-        }
-
-        listView = view.findViewById(R.id.listView);
-        if (listView == null) {
-            Log.e("DownloadsFragment", "ListView is null - Kiểm tra fragment_downloads.xml");
+            Log.e("UnlockedFragment", "Activity is not MySeriesActivity");
             return view;
         }
 
-        seriesList = new ArrayList<>();
-        adapter = new MySeriesAdapter(getContext(), seriesList);
+        dbHelper = new TruyenDatabaseHelper(getContext());
+        unlockedTruyens = new ArrayList<>();
+        adapter = new MySeriesAdapter(getContext(), unlockedTruyens, "unlocked_truyens");
+
+        ListView listView = view.findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Series series = seriesList.get(position);
-                if (!adapter.isDeleteMode()) {
-                    // Cập nhật thời gian truy cập
-                    dbHelper.updateLastAccessed(series.getId(), System.currentTimeMillis());
-                    // Mở màn hình chi tiết
-                    Intent intent = new Intent(getContext(), TruyenDetailActivity.class);
-                    intent.putExtra("tenTruyen", series.getTenTruyen());
-                    intent.putExtra("trangThai", series.getTrangThai());
-                    startActivity(intent);
-                }
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            if (!adapter.isDeleteMode()) {
+                MySeries series = adapter.getItem(position);
+                openTruyenDetail(series);
             }
         });
 
-        refreshTruyenList();
-
+        refreshUnlockedTruyens();
         return view;
     }
 
-    public void setDeleteMode(boolean deleteMode) {
-        if (adapter != null) {
-            adapter.setDeleteMode(deleteMode);
-            Log.d("DownloadsFragment", "Đã đặt deleteMode: " + deleteMode);
-        }
-    }
-
-    public void deleteSelectedItems() {
-        if (adapter != null) {
-            List<Series> itemsToDelete = new ArrayList<>();
-            for (Series series : seriesList) {
-                if (series.isChecked()) {
-                    itemsToDelete.add(series);
-                    dbHelper.deleteTruyen(series.getId());
-//                    Log.d("DownloadsFragment", "Xóa truyện: " + series.getTenTruyen());
-                }
-            }
-            seriesList.removeAll(itemsToDelete);
-            adapter.notifyDataSetChanged();
-            Log.d("DownloadsFragment", "Số truyện còn lại: " + seriesList.size());
+    public void refreshUnlockedTruyens() {
+        if (dbHelper == null || adapter == null || unlockedTruyens == null) {
+            Log.e("UnlockedFragment", "Error: dbHelper=" + dbHelper + ", adapter=" + adapter + ", unlockedTruyens=" + unlockedTruyens);
+            return;
         }
 
+        unlockedTruyens.clear();
+        unlockedTruyens.addAll(dbHelper.getUnlockedTruyen());
+        adapter.notifyDataSetChanged();
+        Log.d("UnlockedFragment", "Refreshed unlocked truyens, count: " + unlockedTruyens.size());
     }
 
-    public void refreshTruyenList() {
-        if (adapter != null) {
-            seriesList.clear();
-            seriesList.addAll(dbHelper.getAllTruyen());
-            adapter.notifyDataSetChanged();
-            Log.d("DownloadsFragment", "Số truyện tải: " + seriesList.size() + ", Dữ liệu: " + seriesList.toString());
-        }
-    }
-    public List<Series> getTruyenList() {
-        return seriesList;
+    public List<MySeries> getTruyenList() {
+        return unlockedTruyens;
     }
 
+    private void openTruyenDetail(MySeries series) {
+        if (getContext() == null) return;
+        Intent intent = new Intent(getContext(), TruyenDetailActivity.class);
+        intent.putExtra("truyen_id", series.getId());
+        startActivity(intent);
+    }
+
+    public MySeriesAdapter getAdapter() {
+        return adapter;
+    }
+    public void deleteSelectedItems(){
+        Toast.makeText(activity, "Không hỗ trợ xóa ở đây!", Toast.LENGTH_SHORT).show();
+    }
 }

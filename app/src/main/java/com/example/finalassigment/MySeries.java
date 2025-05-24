@@ -1,18 +1,20 @@
 package com.example.finalassigment;
 
-public class Series {
+import java.io.Serializable;
+
+public class MySeries implements Serializable {
     private int id;
     private String tenTruyen;
     private String trangThai;
-    private boolean isChecked = false;
     private int image;
+    private boolean isChecked = false;
     private boolean isCheckBoxVisible = false;
     private long lastAccessed = 0;
 
-    public Series(int id, String tenTruyen, String trangThai) {
+    public MySeries(int id, String tenTruyen, String trangThai) {
         this.id = id;
-        this.tenTruyen = tenTruyen;
-        this.trangThai = trangThai;
+        this.tenTruyen = (tenTruyen != null) ? tenTruyen : ""; // Thêm kiểm tra null
+        this.trangThai = (trangThai != null) ? trangThai : ""; // Thêm kiểm tra null
     }
 
     public int getId() {
@@ -28,7 +30,7 @@ public class Series {
     }
 
     public void setTenTruyen(String tenTruyen) {
-        this.tenTruyen = tenTruyen;
+        this.tenTruyen = (tenTruyen != null) ? tenTruyen : "";
     }
 
     public String getTrangThai() {
@@ -36,7 +38,7 @@ public class Series {
     }
 
     public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
+        this.trangThai = (trangThai != null) ? trangThai : "";
     }
 
     public boolean isCheckBoxVisible() {
