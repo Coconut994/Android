@@ -1,0 +1,206 @@
+[
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/layout_item_series.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/layout/item_series.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_winter_moon.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/winter_moon.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_dark_mermaid.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/dark_mermaid.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_reveal_out.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/reveal_out.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_phase.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/phase.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/menu_top_nav_menu.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/menu/top_nav_menu.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_singles_royale.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/singles_royale.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_unlovable_replacement.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/unlovable_replacement.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_reborn_rich.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/reborn_rich.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_lookism.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/lookism.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/layout_page_trending_popular.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/layout/page_trending_popular.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_the_one_who_parried_death.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/the_one_who_parried_death.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_nebulas_civilization.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/nebulas_civilization.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_nano_machine.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/nano_machine.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/xml_backup_rules.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_my_avatars_path_to_greatness.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/my_avatars_path_to_greatness.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_what_death_taught_me.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/what_death_taught_me.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_heart_acres.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/heart_acres.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_press_play_sami.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/press_play_sami.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_the_witch_and_the_bull.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/the_witch_and_the_bull.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/layout_page_fantasy.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/layout/page_fantasy.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/layout_activity_detail.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/layout/activity_detail.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_like_mother_like_daughter.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/like_mother_like_daughter.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_degree_of_love.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/degree_of_love.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_puppies_and_werewolves.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/puppies_and_werewolves.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/layout_page_trending.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/layout/page_trending.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_my_aggravating_sovereign.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/my_aggravating_sovereign.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_of_dark_lords_and_cabbages.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/of_dark_lords_and_cabbages.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_monster_eater.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/monster_eater.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/layout_page_drama.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/layout/page_drama.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_ic_heart.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/ic_heart.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_iseops_romance.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/iseops_romance.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/layout_activity_main.xml.flat",
+        "source": "com.example.seriesranking.app-main-34:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_unnie_i_like_you.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/unnie_i_like_you.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_webtoon_now.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/webtoon_now.jpg"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.seriesranking.app-main-34:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.seriesranking.app-debug-32:/drawable_becoming_the_monarch.jpg.flat",
+        "source": "com.example.seriesranking.app-main-34:/drawable/becoming_the_monarch.jpg"
+    }
+]
