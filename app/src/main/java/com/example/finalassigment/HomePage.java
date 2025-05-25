@@ -77,10 +77,10 @@ public class HomePage extends AppCompatActivity {
         rvTrending.setAdapter(trendingAdapter);
 
         RecyclerView rvPopular = findViewById(R.id.rvPopular);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         rvPopular.setLayoutManager(layoutManager);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_spacing);
-        rvPopular.addItemDecoration(new GridSpacingItemDecoration(2, spacingInPixels, false));
+        rvPopular.addItemDecoration(new GridSpacingItemDecoration(3, spacingInPixels, false));
         List<Story> popularStories = new ArrayList<>();
         popularStories.add(new Story(7,R.drawable.my_aggravating_sovereign, "My Aggravating Sovereign", 2676000));
         popularStories.add(new Story(8,R.drawable.webtoon_now, "Heart Acres", 2150000));
@@ -88,7 +88,7 @@ public class HomePage extends AppCompatActivity {
         popularStories.add(new Story(10,R.drawable.monster_eater, "Monster Eater", 1260000));
         popularStories.add(new Story(11,R.drawable.iseops_romance, "Iseop’s Romance", 4500000));
         popularStories.add(new Story(12,R.drawable.my_aggravating_sovereign, "My Aggravating Sovereign", 3200000));
-        StoryAdapter popularAdapter = new StoryAdapter(trendingStories, new StoryAdapter.OnItemClickListener() {
+        StoryAdapter2 popularAdapter = new StoryAdapter2(trendingStories, new StoryAdapter2.OnItemClickListener() {
             @Override
             public void onItemClick(Story story) {
                 // Xử lý click vào item Trending
@@ -154,50 +154,6 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
-//    private void setupTrending() {
-//        RecyclerView rvTrending = findViewById(R.id.rvTrending);
-//        rvTrending.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        List<Story> trendingStories = new ArrayList<>();
-//        trendingStories.add(new Story(1,R.drawable.anhbia1, "SpyX Family", 5590000));
-//        trendingStories.add(new Story(2,R.drawable.anhbia2, "Dr.Stone", 28800000));
-//        trendingStories.add(new Story(3,R.drawable.singles_royale, "Singles Royale", 2500000));
-//        trendingStories.add(new Story(4,R.drawable.dark_mermaid, "Dark Mermaid", 1500000));
-//        trendingStories.add(new Story(5,R.drawable.iseops_romance, "Iseop’s Romance", 4500000));
-//        trendingStories.add(new Story(6,R.drawable.my_aggravating_sovereign, "My Aggravating ", 3200000));
-//        StoryAdapter trendingAdapter = new StoryAdapter(trendingStories);
-//        rvTrending.setAdapter(trendingAdapter);
-//    }
-
-//    private void setupPopular() {
-//        RecyclerView rvPopular = findViewById(R.id.rvPopular);
-//        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-//        rvPopular.setLayoutManager(layoutManager);
-//
-//        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_spacing);
-//        rvPopular.addItemDecoration(new GridSpacingItemDecoration(2, spacingInPixels, false));
-//
-//        List<Story> trendingStories = new ArrayList<>();
-//
-////        "(7, " + R.drawable.my_aggravating_sovereign + ", 'My Aggravating Sovereign', 'Romance', '267.6K', 'Romantic entanglements in the kingdom.', 7, '+18')," +
-////                "(8, " + R.drawable.press_play_sami + ", 'Press Play, Sami', 'Romance', 'N/A', 'Romantic drama with music.', 8, '0')," +
-////                "(9, " + R.drawable.heart_acres + ", 'Heart Acres', 'Romance', '215K', 'A romantic tale in the countryside.', 9, '-2')," +
-////                "(10, " + R.drawable.the_one_who_parried_death + ", 'The One Who Parried Death', 'Action', '416.8K', 'A warrior defies death itself.', 10, '+7')," +
-////                "(11, " + R.drawable.monster_eater + ", 'Monster Eater', 'Fantasy', '228.6K', 'A hero consumes monsters to gain power.', 11, '-4')," +
-////                "(12, " + R.drawable.nebulas_civilization + ", 'Nebula’s Civilization', 'Fantasy', '336.1K', 'A cosmic civilization-building journey.', 12, '-4')," +
-////                "(13, " + R.drawable.the_witch_and_the_bull + ", 'The Witch and The Bull', 'Fantasy', '8.3M', 'A magical bond between a witch and a bull.', 13, '-8')," +
-////                "(14, " + R.drawable.what_death_taught_me + ", 'What Death Taught Me', 'Romance', '319.9K', 'Lessons of love through loss.', 14, '+11')," +
-//
-//
-//        trendingStories.add(new Story(7,R.drawable.my_aggravating_sovereign, "My Aggravating Sovereign", 2676000));
-//        trendingStories.add(new Story(8,R.drawable.webtoon_now, "Heart Acres", 2150000));
-//        trendingStories.add(new Story(9,R.drawable.heart_acres, "Singles Royale", 2500000));
-//        trendingStories.add(new Story(10,R.drawable.monster_eater, "Monster Eater", 1260000));
-//        trendingStories.add(new Story(11,R.drawable.iseops_romance, "Iseop’s Romance", 4500000));
-//        trendingStories.add(new Story(12,R.drawable.my_aggravating_sovereign, "My Aggravating Sovereign", 3200000));
-//
-//        StoryAdapter popularAdapter = new StoryAdapter(trendingStories);
-//        rvPopular.setAdapter(popularAdapter);
-//    }
 
     private boolean loadFragment(Fragment fragment) {
         if (fragment == null) return false;
