@@ -43,15 +43,15 @@ public class RecommendationFragment extends Fragment {
 
         ArrayAdapter<RecItem> adapter = new ArrayAdapter<RecItem>(
                 requireContext(),
-                android.R.layout.activity_list_item,
-                android.R.id.text1,
+                R.layout.item_recommendation,
+                R.id.tvRecTitle,
                 items
         ) {
             @Override
             public View getView(int pos, View cv, ViewGroup parent) {
                 View row = super.getView(pos, cv, parent);
-                ImageView icon = row.findViewById(android.R.id.icon);
-                TextView text = row.findViewById(android.R.id.text1);
+                ImageView icon = row.findViewById(R.id.imgRecCover);
+                TextView text = row.findViewById(R.id.tvRecTitle);
                 RecItem ri = getItem(pos);
                 text.setText(ri.title);
                 int resId = getResources()
@@ -68,6 +68,10 @@ public class RecommendationFragment extends Fragment {
             // Cập nhật MainActivity
             MainMangaActivity act = (MainMangaActivity) requireActivity();
             act.setCurrentManga(ri.mangaId, ri.firstChapterId);
+            act.findViewById(R.id.btn_preview).setSelected(true);
+            act.findViewById(R.id.btn_episodes).setSelected(false);
+            act.findViewById(R.id.btn_recommend).setSelected(false);
+
             // Chuyển về Preview chương đầu
             PreviewFragment pf = PreviewFragment.newInstance(ri.firstChapterId);
             act.getSupportFragmentManager().beginTransaction()

@@ -16,14 +16,14 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Log in now and enjoy free comics"
+        android:text="Đăng nhập ngay và tận hưởng muôn vàn bộ truyện miễn phí"
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="15dp" />
 
 
     <!-- Subtitle -->
@@ -31,7 +31,7 @@
         android:id="@+id/tvSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Start reading thousands of free comics with other fans and creators!"
+        android:text="Bắt đầu hành trình mộng mơ nào bạn mình ơi!"
         android:textSize="14sp"
         android:textColor="#666666"
         android:gravity="center"
@@ -47,7 +47,7 @@
         android:id="@+id/tvLabelUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="User Name"
+        android:text="Tên tài khoản"
         android:textSize="12sp"
         android:textStyle="bold"
         android:paddingBottom="4dp"
@@ -75,7 +75,7 @@
             android:layout_height="match_parent"
             android:textSize="15dp"
             android:background="@android:color/transparent"
-            android:hint="Enter username" />
+            android:hint="Nhập tên người dùng" />
     </LinearLayout>
 
 
@@ -85,7 +85,7 @@
         android:id="@+id/tvLabelPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Password"
+        android:text="Mật khẩu"
         android:textSize="12sp"
         android:textStyle="bold"
         android:paddingBottom="4dp"
@@ -125,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:hint="Enter password"
+            android:hint="Nhập mật khẩu"
             android:textSize="15dp"
             android:drawableEnd="@drawable/eye_close"
             android:inputType="textPassword" />
@@ -145,7 +145,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="16dp"
-        android:text="Login"
+        android:text="Đăng nhập"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
         android:backgroundTint="#6200EE"
@@ -196,7 +196,7 @@
         android:id="@+id/btnGoogle"
         android:layout_width="0dp"
         android:layout_height="55dp"
-        android:text="Continue with Google"
+        android:text="Đăng nhập với Google"
         android:textSize="16sp"
         android:textColor="#000000"
         android:backgroundTint="#EEEEEE"
@@ -216,7 +216,7 @@
         android:id="@+id/btnFacebook"
         android:layout_width="0dp"
         android:layout_height="55dp"
-        android:text="Continue with Facebook"
+        android:text="Đặng nhập với Facebook"
         android:textSize="16sp"
         android:textColor="#000000"
         android:backgroundTint="#EEEEEE"
@@ -236,7 +236,7 @@
         android:id="@+id/tvOtherOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign up"
+        android:text="Đăng ký"
         android:textSize="14sp"
         android:textColor="#1E88E5"
         android:drawablePadding="4dp"
@@ -271,7 +271,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="© NAVER WEBTOON Ltd."
+            android:text="© Nhóm mình chất."
             android:textSize="12sp"
             android:textColor="#999999"
             android:layout_marginEnd="16dp" />

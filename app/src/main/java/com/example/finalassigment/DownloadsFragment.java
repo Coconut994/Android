@@ -140,6 +140,10 @@ public class DownloadsFragment extends Fragment {
     public MySeriesAdapter getAdapter() {
         return adapter;
     }
-
+    @Override
+    public void onResume(){
+        super.onResume();
+        refreshTruyenList();
+    }
 
 }

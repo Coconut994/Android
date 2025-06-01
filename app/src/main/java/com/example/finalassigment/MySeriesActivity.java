@@ -42,20 +42,25 @@ public class MySeriesActivity extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:
-                    tab.setText("Recent");
+                    tab.setText("Gần đây");
                     break;
                 case 1:
                     tab.setText("Subscribed");
                     break;
                 case 2:
-                    tab.setText("Download");
+                    tab.setText("Tải xuống");
                     break;
                 case 3:
-                    tab.setText("Unlocked");
+                    tab.setText("Chưa mở khóa");
                     break;
             }
         }).attach();
-
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                refreshAllFragments(); // Làm mới khi chuyển tab
+            }
+        });
         // Khởi tạo nút xóa
         btnDeleteSelected = findViewById(R.id.btn_delete_myseries);
         if (btnDeleteSelected == null) {
@@ -89,17 +94,17 @@ public class MySeriesActivity extends AppCompatActivity {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag("f" + currentItem);
         if (fragment != null) {
             if (fragment instanceof DownloadsFragment) {
-                btnDeleteSelected.setVisibility(View.VISIBLE);
+//                btnDeleteSelected.setVisibility(View.VISIBLE);
                 ((DownloadsFragment) fragment).setDeleteMode(isDeleteMode);
             } else if (fragment instanceof RecentFragment) {
-                btnDeleteSelected.setVisibility(View.VISIBLE);
+//                btnDeleteSelected.setVisibility(View.VISIBLE);
                 ((RecentFragment) fragment).setDeleteMode(isDeleteMode);
 
             } else if (fragment instanceof SubscribedFragment) {
-                btnDeleteSelected.setVisibility(View.GONE);
+                ((SubscribedFragment) fragment).setDeleteMode(isDeleteMode);
 
             } else if (fragment instanceof UnlockedFragment) {
-                btnDeleteSelected.setVisibility(View.GONE);
+                ((UnlockedFragment) fragment).setDeleteMode(isDeleteMode);
 
             }
         }

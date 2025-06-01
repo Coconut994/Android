@@ -15,7 +15,6 @@ public class SeriesAdapter extends BaseAdapter {
 
     private final Context context;
     private final List<SeriesModel> seriesList;
-
     public SeriesAdapter(Context context, List<SeriesModel> seriesList) {
         this.context = context;
         this.seriesList = seriesList;

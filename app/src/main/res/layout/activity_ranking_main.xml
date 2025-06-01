@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#FFFFFF"
-            android:title="Ranking"
+            android:title="Xếp hạng"
             tools:ignore="HardcodedText">
 
         </androidx.appcompat.widget.Toolbar>

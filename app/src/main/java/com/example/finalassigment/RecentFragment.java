@@ -22,6 +22,7 @@ public class RecentFragment extends Fragment {
     private TruyenDatabaseHelper dbHelper;
     private List<MySeries> recentTruyens;
     private MySeriesActivity activity;
+    private ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class RecentFragment extends Fragment {
             Log.e("RecentFragment", "Activity is not MySeriesActivity");
             return view;
         }
-        ListView listView = view.findViewById(R.id.listView);
+        listView = view.findViewById(R.id.listView);
         dbHelper = new TruyenDatabaseHelper(getContext());
         recentTruyens = new ArrayList<>();
         adapter = new MySeriesAdapter(getContext(), recentTruyens,"recent_truyens");
@@ -120,6 +121,9 @@ public class RecentFragment extends Fragment {
         List<MySeries> truyensFromDb = dbHelper.getRecentTruyen();
         recentTruyens.addAll(truyensFromDb);
         adapter.notifyDataSetChanged();
+        if (listView != null) {
+            listView.invalidateViews();
+        }
         Log.d("RecentFragment", "Refreshed recent truyens, count: " + recentTruyens.size());
     }
 

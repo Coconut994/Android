@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 
@@ -76,7 +77,53 @@ public class SubscribedFragment extends Fragment {
     public MySeriesAdapter getAdapter() {
         return adapter;
     }
-    public void deleteSelectedItems(){
-        Toast.makeText(activity, "Không hỗ trợ xóa ở đây!", Toast.LENGTH_SHORT).show();
+//    public void deleteSelectedItems(){
+//        Toast.makeText(activity, "Không hỗ trợ xóa ở đây!", Toast.LENGTH_SHORT).show();
+//    }
+public void setDeleteMode(boolean deleteMode) {
+    if (adapter != null) {
+        adapter.setDeleteMode(deleteMode);
+
+        Log.d("DownloadsFragment", "Đã đặt deleteMode: " + deleteMode);
     }
+}
+
+    public void deleteSelectedItems() {
+        if (adapter == null || subscribedTruyens == null || dbHelper == null) {
+            Log.e("DownloadsFragment", "Error: adapter=" + adapter + ", seriesList=" + subscribedTruyens + ", dbHelper=" + dbHelper);
+            Toast.makeText(getContext(), "Lỗi: Không thể xóa do dữ liệu không sẵn sàng", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        List<MySeries> itemsToDelete = adapter.getSelectedItems();
+        if (itemsToDelete.isEmpty()) {
+            Toast.makeText(getContext(), "Chưa chọn truyện nào để xóa", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        new AlertDialog.Builder(getContext())
+                .setTitle("Xóa truyện đã tải")
+                .setMessage("Bạn có chắc muốn xóa " + itemsToDelete.size() + " truyện khỏi danh sách đã tải không?" )
+                .setPositiveButton("Xóa", (dialog, which) -> {
+                    for (MySeries series : itemsToDelete) {
+                        if (dbHelper.removeFromSubscribed(series.getId())) {
+                            Log.d("DownloadsFragment", "Removed from downloads: " + series.getTenTruyen());
+                        } else {
+                            Log.w("DownloadsFragment", "Failed to remove from downloads: " + series.getTenTruyen());
+                        }
+                    }
+                    refreshSubscribedTruyens();
+                    setDeleteMode(false);
+                    Toast.makeText(getContext(), "Đã xóa " + itemsToDelete.size() + " truyện khỏi danh sách đăng kí", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Hủy", null)
+                .show();
+
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        refreshSubscribedTruyens();
+    }
+
 }

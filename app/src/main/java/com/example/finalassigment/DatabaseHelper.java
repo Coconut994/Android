@@ -48,18 +48,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void insertInitialData(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + TABLE_SERIES + " VALUES " +
-                "(1, " + R.drawable.lookism + ", 'Lookism', 'Drama', '55.9M', 'Daniel, a loner, wakes up in a new body.', 1, '+30')," +
-                "(2, " + R.drawable.webtoon_now + ", 'WEBTOON Now', 'Informative', '2.4M', 'Latest updates on popular webtoons.', 2, '+21')," +
+                "(1, " + R.drawable.anhbia1 + ", 'SpyX Family', 'Fantasy', '5.9M', 'Anya with her spy family.', 1, '+30')," +
+                "(2, " + R.drawable.anhbia2 + ", 'Dr.Stone', 'Informative', '2.8M', 'The return of humanity.', 2, '+21')," +
                 "(3, " + R.drawable.winter_moon + ", 'Winter Moon', 'Fantasy', '37.7M', 'Epic fantasy adventure.', 3, '+24')," +
-                "(4, " + R.drawable.singles_royale + ", 'Singles Royale', 'Romance', '21.9K', 'A royal court romance.', 4, '+32')," +
-                "(5, " + R.drawable.dark_mermaid + ", 'Dark Mermaid', 'Fantasy', '476.1K', 'Underwater drama with a twist.', 5, '+19')," +
+                "(4, " + R.drawable.singles_royale + ", 'Singles Royale', 'Romance', '2.5M', 'A royal court romance.', 4, '+32')," +
+                "(5, " + R.drawable.dark_mermaid + ", 'Dark Mermaid', 'Fantasy', '4.7M', 'Underwater drama with a twist.', 5, '+19')," +
                 "(6, " + R.drawable.iseops_romance + ", 'Iseop’s Romance', 'Romance', '4M', 'Heartfelt love story.', 6, '+12')," +
-                "(7, " + R.drawable.my_aggravating_sovereign + ", 'My Aggravating Sovereign', 'Romance', '267.6K', 'Romantic entanglements in the kingdom.', 7, '+18')," +
+                "(7, " + R.drawable.my_aggravating_sovereign + ", 'My Aggravating Sovereign', 'Romance', '2.6M', 'Romantic entanglements in the kingdom.', 7, '+18')," +
                 "(8, " + R.drawable.press_play_sami + ", 'Press Play, Sami', 'Romance', 'N/A', 'Romantic drama with music.', 8, '0')," +
-                "(9, " + R.drawable.heart_acres + ", 'Heart Acres', 'Romance', '215K', 'A romantic tale in the countryside.', 9, '-2')," +
+                "(9, " + R.drawable.heart_acres + ", 'Heart Acres', 'Romance', '2.1M', 'A romantic tale in the countryside.', 9, '-2')," +
                 "(10, " + R.drawable.the_one_who_parried_death + ", 'The One Who Parried Death', 'Action', '416.8K', 'A warrior defies death itself.', 10, '+7')," +
-                "(11, " + R.drawable.monster_eater + ", 'Monster Eater', 'Fantasy', '228.6K', 'A hero consumes monsters to gain power.', 11, '-4')," +
-                "(12, " + R.drawable.nebulas_civilization + ", 'Nebula’s Civilization', 'Fantasy', '336.1K', 'A cosmic civilization-building journey.', 12, '-4')," +
+                "(11, " + R.drawable.monster_eater + ", 'Monster Eater', 'Fantasy', '2.2M', 'A hero consumes monsters to gain power.', 11, '-4')," +
+                "(12, " + R.drawable.nebulas_civilization + ", 'Nebula’s Civilization', 'Fantasy', '3.3M', 'A cosmic civilization-building journey.', 12, '-4')," +
                 "(13, " + R.drawable.the_witch_and_the_bull + ", 'The Witch and The Bull', 'Fantasy', '8.3M', 'A magical bond between a witch and a bull.', 13, '-8')," +
                 "(14, " + R.drawable.what_death_taught_me + ", 'What Death Taught Me', 'Romance', '319.9K', 'Lessons of love through loss.', 14, '+11')," +
                 "(15, " + R.drawable.phase + ", 'Phase', 'Romance', '7.7M', 'A story of love in different phases of life.', 15, '-4');");

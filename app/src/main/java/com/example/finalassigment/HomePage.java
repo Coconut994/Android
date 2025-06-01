@@ -57,15 +57,16 @@ public class HomePage extends AppCompatActivity {
         rvTrending.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         List<Story> trendingStories = new ArrayList<>();
         trendingStories.add(new Story(1,R.drawable.anhbia1, "SpyX Family", 5590000));
-        trendingStories.add(new Story(2,R.drawable.anhbia2, "Dr.Stone", 28800000));
-        trendingStories.add(new Story(3,R.drawable.singles_royale, "Singles Royale", 2500000));
-        trendingStories.add(new Story(4,R.drawable.dark_mermaid, "Dark Mermaid", 1500000));
-        trendingStories.add(new Story(5,R.drawable.iseops_romance, "Iseop’s Romance", 4500000));
-        trendingStories.add(new Story(6,R.drawable.my_aggravating_sovereign, "My Aggravating ", 3200000));
+        trendingStories.add(new Story(2,R.drawable.anhbia2, "Dr.Stone", 2880000));
+        trendingStories.add(new Story(4,R.drawable.singles_royale, "Singles Royale", 2500000));
+        trendingStories.add(new Story(5,R.drawable.dark_mermaid, "Dark Mermaid", 476100));
+        trendingStories.add(new Story(6,R.drawable.iseops_romance, "Iseop’s Romance", 4000000));
+        trendingStories.add(new Story(7,R.drawable.my_aggravating_sovereign, "My Aggravating ", 2676000));
         StoryAdapter trendingAdapter = new StoryAdapter(trendingStories, new StoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Story story) {
                 // Xử lý click vào item Trending
+//                truyenDatabaseHelper.insertTruyen();
                 truyenDatabaseHelper.addRecentTruyen(story.getId());
                 Intent intent = new Intent(HomePage.this, MainMangaActivity.class);
                 intent.putExtra("story_id", story.getId());
@@ -83,12 +84,12 @@ public class HomePage extends AppCompatActivity {
         rvPopular.addItemDecoration(new GridSpacingItemDecoration(3, spacingInPixels, false));
         List<Story> popularStories = new ArrayList<>();
         popularStories.add(new Story(7,R.drawable.my_aggravating_sovereign, "My Aggravating Sovereign", 2676000));
-        popularStories.add(new Story(8,R.drawable.webtoon_now, "Heart Acres", 2150000));
-        popularStories.add(new Story(9,R.drawable.heart_acres, "Singles Royale", 2500000));
-        popularStories.add(new Story(10,R.drawable.monster_eater, "Monster Eater", 1260000));
-        popularStories.add(new Story(11,R.drawable.iseops_romance, "Iseop’s Romance", 4500000));
-        popularStories.add(new Story(12,R.drawable.my_aggravating_sovereign, "My Aggravating Sovereign", 3200000));
-        StoryAdapter2 popularAdapter = new StoryAdapter2(trendingStories, new StoryAdapter2.OnItemClickListener() {
+        popularStories.add(new Story(8,R.drawable.press_play_sami, "Press Play, Sami", 2150000));
+        popularStories.add(new Story(9,R.drawable.heart_acres, "Heart Acres", 2150000));
+        popularStories.add(new Story(11,R.drawable.monster_eater, "Monster Eater", 2286000));
+        popularStories.add(new Story(6,R.drawable.iseops_romance, "Iseop’s Romance", 4000000));
+        popularStories.add(new Story(12,R.drawable.nebulas_civilization, "Nebula’s Civilization", 3361000));
+        StoryAdapter2 popularAdapter = new StoryAdapter2(popularStories, new StoryAdapter2.OnItemClickListener() {
             @Override
             public void onItemClick(Story story) {
                 // Xử lý click vào item Trending
@@ -106,13 +107,6 @@ public class HomePage extends AppCompatActivity {
         tvTrending = findViewById(R.id.trendingTitle);
         tvPopular = findViewById(R.id.popularTitle);
         tvTrending.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomePage.this,MainRankingActivity.class));
-//                finish();
-            }
-        });
-        tvPopular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomePage.this,MainRankingActivity.class));

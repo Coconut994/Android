@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -179,7 +180,7 @@ import androidx.core.view.WindowInsetsCompat;
 //    }
 //}
 public class SignUp extends AppCompatActivity {
-    private TextView tv_back;
+    private ImageView tv_back;
     private EditText edt_Email, edt_password, edt_re_pass, edt_username,edt_otp;
     private Button btn_signup,btn_otp;
     private MyDatabaseHelper dbHelper;

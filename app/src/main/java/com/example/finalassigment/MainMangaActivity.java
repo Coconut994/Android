@@ -13,8 +13,9 @@ import androidx.fragment.app.Fragment;
 public class MainMangaActivity extends AppCompatActivity {
     Button btnPreview, btnEpisodes, btnRecommend, btnSubcribed;
     private ImageView headerImage, btnBackSeries;
+    private TruyenDatabaseHelper truyenDatabaseHelper;
 
-    private int currentMangaId = 1;
+     int currentMangaId = 1;
     private int defaultChapterId = 1;
 
     @Override
@@ -28,17 +29,13 @@ public class MainMangaActivity extends AppCompatActivity {
         btnRecommend = findViewById(R.id.btn_recommend);
         btnBackSeries = findViewById(R.id.btnBackSeries);
         btnSubcribed = findViewById(R.id.btn_subscribe);
-        btnSubcribed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainMangaActivity.this, "Chờ chúng mình hoàn thiện chức năng nhé T.T", Toast.LENGTH_SHORT).show();
-            }
-        });
+        truyenDatabaseHelper = new TruyenDatabaseHelper(this);
         Intent myIntent = getIntent();
 
 //        // Show ảnh bìa mặc định
 
         currentMangaId = myIntent.getIntExtra("story_id",2);
+        truyenDatabaseHelper.addRecentTruyen(currentMangaId);
         if(currentMangaId > 2){
             currentMangaId = 1;
             Toast.makeText(this, "Truyện đang cập nhật nhé mí\nXem tạm Anya nhé >.< !", Toast.LENGTH_SHORT).show();
@@ -51,26 +48,44 @@ public class MainMangaActivity extends AppCompatActivity {
 
         // Mặc định: show Preview chương đầu của manga đầu
         replaceFragment(PreviewFragment.newInstance(defaultChapterId));
-
+        btnPreview.setSelected(true);
         btnPreview.setOnClickListener(v -> {
+            btnPreview.setSelected(false);
+            btnEpisodes.setSelected(false);
+            btnRecommend.setSelected(false);
+            btnPreview.setSelected(true);
             replaceFragment(PreviewFragment.newInstance(defaultChapterId));
             updateHeaderImage(currentMangaId);
         });
 
         btnEpisodes.setOnClickListener(v -> {
+            btnPreview.setSelected(false);
+            btnEpisodes.setSelected(false);
+            btnRecommend.setSelected(false);
+            btnEpisodes.setSelected(true);
             replaceFragment(EpisodesFragment.newInstance(currentMangaId));
             updateHeaderImage(currentMangaId);
         });
 
         btnRecommend.setOnClickListener(v -> {
+            btnPreview.setSelected(false);
+            btnEpisodes.setSelected(false);
+            btnRecommend.setSelected(false);
+            btnRecommend.setSelected(true);
             replaceFragment(new RecommendationFragment());
-            // giữ header nguyên khi vào Recommend, hoặc bạn có thể đổi ảnh khác
         });
 
         btnBackSeries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        btnSubcribed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainMangaActivity.this, "Đã vào danh sách Subcribed của bạn yêu rồi nè >.<", Toast.LENGTH_SHORT).show();
+                truyenDatabaseHelper.addSubscribedTruyen(currentMangaId);
             }
         });
     }

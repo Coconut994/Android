@@ -34,12 +34,13 @@
             <!-- Search Bar -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/searchContainer"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_width="373dp"
+                android:layout_height="39dp"
                 android:layout_margin="16dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:background="#EDEDED"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/searchEditText"
@@ -47,6 +48,7 @@
                     android:layout_height="match_parent"
                     android:hint="Tìm kiếm..."
                     android:paddingStart="16dp"
+                    android:paddingTop="10dp"
                     android:paddingEnd="48dp"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -58,21 +60,22 @@
                     android:id="@+id/searchIcon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
                     android:padding="4dp"
                     android:src="@android:drawable/ic_menu_search"
-                    android:layout_marginEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Trending Title -->
             <TextView
                 android:id="@+id/trendingTitle"
                 android:layout_width="0dp"
+                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:text="Trending &amp; Popular Series"
+                android:text="Xu hướng &amp; nổi tiếng"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/searchContainer"
@@ -83,7 +86,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTrending"
                 android:layout_width="0dp"
-                android:layout_height="280dp"
+                android:paddingRight="10dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@id/trendingTitle"
@@ -94,11 +98,13 @@
             <TextView
                 android:id="@+id/popularTitle"
                 android:layout_width="0dp"
+                android:paddingBottom="10dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:text="Popular Series by Category"
+                android:text="Dành riêng cho bạn nè"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintTop_toBottomOf="@id/rvTrending"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -109,7 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="0dp"
                 app:layout_constraintTop_toBottomOf="@id/popularTitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -122,8 +128,8 @@
                 android:id="@+id/rvPopular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="0dp"
                 app:layout_constraintTop_toBottomOf="@id/categoryScroll"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

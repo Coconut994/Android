@@ -104,95 +104,137 @@ public class TruyenDatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         // Thêm truyện vào bảng truyen
-        values.put("ten", "Dế Mèn Phiêu Lưu Ký");
-        values.put("trangthai", "Đã đọc");
-        values.put("image", R.drawable.anhbongbong);
+        values.put("ten", "SpyX Family");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.anhbia1);
         long id1 = db.insert(TABLE_TRUYEN, null, values);
 
         values.clear();
-        values.put("ten", "Tắt Đèn");
-        values.put("trangthai", "Chưa đọc");
-        values.put("image", R.drawable.anhcay);
+        values.put("ten", "Dr.Stone");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.anhbia2);
         long id2 = db.insert(TABLE_TRUYEN, null, values);
 
         values.clear();
-        values.put("ten", "Chí Phèo");
+        values.put("ten", "Winter Moon");
         values.put("trangthai", "Đang đọc");
-        values.put("image", R.drawable.dacvu);
+        values.put("image", R.drawable.winter_moon);
         long id3 = db.insert(TABLE_TRUYEN, null, values);
 
         values.clear();
-        values.put("ten", "Thám Tử Lừng Danh Conan");
+        values.put("ten", "Singles Royale");
         values.put("trangthai", "Đang đọc");
-        values.put("image", R.drawable.chim);
+        values.put("image", R.drawable.singles_royale);
         long id4 = db.insert(TABLE_TRUYEN, null, values);
 
         values.clear();
-        values.put("ten", "Công Nghệ Người Máy");
+        values.put("ten", "Dark Mermaid");
         values.put("trangthai", "Đang đọc");
-        values.put("image", R.drawable.congnghe);
+        values.put("image", R.drawable.dark_mermaid);
         long id5 = db.insert(TABLE_TRUYEN, null, values);
 
         values.clear();
-        values.put("ten", "Bạn Trai Tôi Vô Địch");
+        values.put("ten", "Iseop’s Romance");
         values.put("trangthai", "Đang đọc");
-        values.put("image", R.drawable.damsen);
+        values.put("image", R.drawable.iseops_romance);
         long id6 = db.insert(TABLE_TRUYEN, null, values);
 
         values.clear();
-        values.put("ten", "Doraemon");
+        values.put("ten", "My Aggravating Sovereign");
         values.put("trangthai", "Đang đọc");
-        values.put("image", R.drawable.doraemon);
+        values.put("image", R.drawable.my_aggravating_sovereign);
         long id7 = db.insert(TABLE_TRUYEN, null, values);
 
         values.clear();
-        values.put("ten", "Dragon Ball Super");
+        values.put("ten", "Press Play, Sami");
         values.put("trangthai", "Đang đọc");
-        values.put("image", R.drawable.goku);
+        values.put("image", R.drawable.press_play_sami);
         long id8 = db.insert(TABLE_TRUYEN, null, values);
+
+        values.clear();
+        values.put("ten", "Heart Acres");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.heart_acres);
+        long id9 = db.insert(TABLE_TRUYEN, null, values);
+
+        values.clear();
+        values.put("ten", "The One Who Parried Death");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.the_one_who_parried_death);
+        long id10 = db.insert(TABLE_TRUYEN, null, values);
+
+        values.clear();
+        values.put("ten", "Monster Eater");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.monster_eater);
+        long id11 = db.insert(TABLE_TRUYEN, null, values);
+
+        values.clear();
+        values.put("ten", "Nebula’s Civilization");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.nebulas_civilization);
+        long id12 = db.insert(TABLE_TRUYEN, null, values);
+
+        values.clear();
+        values.put("ten", "The Witch and The Bull");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.the_witch_and_the_bull);
+        long id13 = db.insert(TABLE_TRUYEN, null, values);
+
+        values.clear();
+        values.put("ten", "What Death Taught Me");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.what_death_taught_me);
+        long id14 = db.insert(TABLE_TRUYEN, null, values);
+
+        values.clear();
+        values.put("ten", "Phase");
+        values.put("trangthai", "Đang đọc");
+        values.put("image", R.drawable.phase);
+        long id15 = db.insert(TABLE_TRUYEN, null, values);
 
 
 
         // Thêm vào recent_truyens
-        values.clear();
-        values.put("truyen_id", id1);
-        values.put("last_accessed", System.currentTimeMillis() - 1000);
-        db.insert(TABLE_RECENT_TRUYENS, null, values);
-
-        values.clear();
-        values.put("truyen_id", id2);
-        values.put("last_accessed", System.currentTimeMillis() - 5000);
-        db.insert(TABLE_RECENT_TRUYENS, null, values);
-
-        // Thêm vào downloaded_truyens
-        values.clear();
-        values.put("truyen_id", id2);
-        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
-
-        values.clear();
-        values.put("truyen_id", id4);
-        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
-
-        values.clear();
-        values.put("truyen_id", id5);
-        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
-
-        values.clear();
-        values.put("truyen_id", id6);
-        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
-
-        values.clear();
-        values.put("truyen_id", id3);
-        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
-
-        // Thêm vào subscribed_truyens và unlocked_truyens
-        values.clear();
-        values.put("truyen_id", id2);
-        db.insert(TABLE_SUBSCRIBED_TRUYENS, null, values);
-
-        values.clear();
-        values.put("truyen_id", id3);
-        db.insert(TABLE_UNLOCKED_TRUYENS, null, values);
+//        values.clear();
+//        values.put("truyen_id", id1);
+//        values.put("last_accessed", System.currentTimeMillis() - 1000);
+//        db.insert(TABLE_RECENT_TRUYENS, null, values);
+//
+//        values.clear();
+//        values.put("truyen_id", id2);
+//        values.put("last_accessed", System.currentTimeMillis() - 5000);
+//        db.insert(TABLE_RECENT_TRUYENS, null, values);
+//
+//        // Thêm vào downloaded_truyens
+//        values.clear();
+//        values.put("truyen_id", id2);
+//        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
+//
+//        values.clear();
+//        values.put("truyen_id", id4);
+//        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
+//
+//        values.clear();
+//        values.put("truyen_id", id5);
+//        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
+//
+//        values.clear();
+//        values.put("truyen_id", id6);
+//        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
+//
+//        values.clear();
+//        values.put("truyen_id", id3);
+//        db.insert(TABLE_DOWNLOADED_TRUYENS, null, values);
+//
+//        // Thêm vào subscribed_truyens và unlocked_truyens
+//        values.clear();
+//        values.put("truyen_id", id2);
+//        db.insert(TABLE_SUBSCRIBED_TRUYENS, null, values);
+//
+//        values.clear();
+//        values.put("truyen_id", id3);
+//        db.insert(TABLE_UNLOCKED_TRUYENS, null, values);
 
         db.close();
     }
@@ -216,16 +258,16 @@ public class TruyenDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
 
         // Giới hạn số lượng truyện truy cập gần đây
-        cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_RECENT_TRUYENS, null);
-        if (cursor.moveToFirst()) {
-            int count = cursor.getInt(0);
-            if (count > MAX_RECENT_TRUYENS) {
-                db.execSQL("DELETE FROM " + TABLE_RECENT_TRUYENS + " WHERE truyen_id IN (" +
-                                "SELECT truyen_id FROM " + TABLE_RECENT_TRUYENS + " " +
-                                "ORDER BY last_accessed ASC LIMIT ?)",
-                        new String[]{String.valueOf(count - MAX_RECENT_TRUYENS)});
-            }
-        }
+//        cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_RECENT_TRUYENS, null);
+//        if (cursor.moveToFirst()) {
+//            int count = cursor.getInt(0);
+//            if (count > MAX_RECENT_TRUYENS) {
+//                db.execSQL("DELETE FROM " + TABLE_RECENT_TRUYENS + " WHERE truyen_id IN (" +
+//                                "SELECT truyen_id FROM " + TABLE_RECENT_TRUYENS + " " +
+//                                "ORDER BY last_accessed ASC LIMIT ?)",
+//                        new String[]{String.valueOf(count - MAX_RECENT_TRUYENS)});
+//            }
+//        }
         cursor.close();
         db.close();
     }
@@ -323,9 +365,7 @@ public class TruyenDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return list;
     }
-    public void addRecentTruyen(int truyenId) {
-        updateLastAccessed(truyenId, System.currentTimeMillis());
-    }
+
 
     public boolean deleteTruyen(int id, String tableName) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -350,9 +390,50 @@ public class TruyenDatabaseHelper extends SQLiteOpenHelper {
             series.setImage(cursor.getInt(cursor.getColumnIndexOrThrow("image")));
             list.add(series);
         }
-
         cursor.close();
         db.close();
         return list;
     }
+    private boolean isTruyenExists(String tableName, int truyenId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT 1 FROM " + tableName + " WHERE truyen_id = ?", new String[]{String.valueOf(truyenId)});
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        db.close();
+        return exists;
+    }
+
+    public void addRecentTruyen(int truyenId) {
+        updateLastAccessed(truyenId, System.currentTimeMillis());
+    }
+    public void addDownloadedTruyen(int truyenId) {
+        if (!isTruyenExists("downloaded_truyens", truyenId)) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("truyen_id", truyenId);
+            db.insert("downloaded_truyens", null, values);
+            db.close();
+        }
+    }
+
+    public void addSubscribedTruyen(int truyenId) {
+        if (!isTruyenExists("subscribed_truyens", truyenId)) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("truyen_id", truyenId);
+            db.insert("subscribed_truyens", null, values);
+            db.close();
+        }
+    }
+
+    public void addUnlockedTruyen(int truyenId) {
+        if (!isTruyenExists("unlocked_truyens", truyenId)) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("truyen_id", truyenId);
+            db.insert("unlocked_truyens", null, values);
+            db.close();
+        }
+    }
+
 }

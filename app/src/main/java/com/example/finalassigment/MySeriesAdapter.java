@@ -113,27 +113,27 @@ public class MySeriesAdapter extends ArrayAdapter<MySeries> {
         });
 
         // Long-click để xóa item
-        convertView.setOnLongClickListener(v -> {
-            if (!deleteMode) {
-                new AlertDialog.Builder(context)
-                        .setTitle("Xóa truyện")
-                        .setMessage("Bạn có chắc muốn xóa truyện \"" + series.getTenTruyen() + "\" không?")
-                        .setPositiveButton("Xóa", (dialog, which) -> {
-                            Log.d("SeriesAdapter", "Attempting to delete ID: " + series.getId() + " from table: " + tableName);
-                            if (dbHelper.deleteTruyen(series.getId(), tableName)) {
-                                seriesList.remove(series);
-                                notifyDataSetChanged();
-                                Toast.makeText(context, "Đã xóa truyện", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(context, "Xóa thất bại, kiểm tra ID hoặc bảng", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton("Hủy", null)
-                        .show();
-                return true;
-            }
-            return false;
-        });
+//        convertView.setOnLongClickListener(v -> {
+//            if (!deleteMode) {
+//                new AlertDialog.Builder(context)
+//                        .setTitle("Xóa truyện")
+//                        .setMessage("Bạn có chắc muốn xóa truyện \"" + series.getTenTruyen() + "\" không?")
+//                        .setPositiveButton("Xóa", (dialog, which) -> {
+//                            Log.d("SeriesAdapter", "Attempting to delete ID: " + series.getId() + " from table: " + tableName);
+//                            if (dbHelper.deleteTruyen(series.getId(), tableName)) {
+//                                seriesList.remove(series);
+//                                notifyDataSetChanged();
+//                                Toast.makeText(context, "Đã xóa truyện", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(context, "Xóa thất bại, kiểm tra ID hoặc bảng", Toast.LENGTH_SHORT).show();
+//                            }
+//                        })
+//                        .setNegativeButton("Hủy", null)
+//                        .show();
+//                return true;
+//            }
+//            return false;
+//        });
 
         // Set click cho toàn bộ item
         convertView.setOnClickListener(v -> {

@@ -27,7 +27,7 @@ public class MainRankingActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Ranking");
+            getSupportActionBar().setTitle("Xếp hạng");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         // Thiết lập ViewPager2 và TabLayout
@@ -44,6 +44,7 @@ public class MainRankingActivity extends AppCompatActivity {
                     case 1: return new PopularFragment();
                     case 2: return new DramaFragment();
                     case 3: return new FantasyFragment();
+                    case 4: return new RomanceFragment();
                     default: return new TrendingFragment(); // Mặc định
                 }
             }
@@ -59,11 +60,11 @@ public class MainRankingActivity extends AppCompatActivity {
         // Liên kết TabLayout với ViewPager2
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
-                case 0: tab.setText("TRENDING"); break;
-                case 1: tab.setText("POPULAR"); break;
-                case 2: tab.setText("DRAMA"); break;
-                case 3: tab.setText("FANTASY"); break;
-                case 4: tab.setText("ROMANCE"); break;
+                case 0: tab.setText("Xu hướng"); break;
+                case 1: tab.setText("Phổ biến"); break;
+                case 2: tab.setText("Drama"); break;
+                case 3: tab.setText("Fantasy"); break;
+                case 4: tab.setText("Romance"); break;
             }
         }).attach();
     }

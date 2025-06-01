@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -62,20 +62,18 @@ public class EpisodesFragment extends Fragment {
 
         ArrayAdapter<ChapterItem> adapter = new ArrayAdapter<ChapterItem>(
                 requireContext(),
-                android.R.layout.activity_list_item,
-                android.R.id.text1,
+                R.layout.item_recommendation,
+                R.id.tvRecTitle,
                 items
         ) {
             @Override
             public View getView(int pos, View cv, ViewGroup parent) {
                 View row = super.getView(pos, cv, parent);
-                ImageView icon = row.findViewById(android.R.id.icon);
-                TextView text = row.findViewById(android.R.id.text1);
+                ImageView icon = row.findViewById(R.id.imgRecCover);
+                TextView text = row.findViewById(R.id.tvRecTitle);
                 ChapterItem ci = getItem(pos);
                 text.setText(ci.title);
-                int resId = getResources()
-                        .getIdentifier(ci.coverImageName, "drawable",
-                                requireContext().getPackageName());
+                int resId = getResources().getIdentifier(ci.coverImageName, "drawable", requireContext().getPackageName());
                 icon.setImageResource(resId);
                 return row;
             }
@@ -84,6 +82,13 @@ public class EpisodesFragment extends Fragment {
         listChapters.setAdapter(adapter);
         listChapters.setOnItemClickListener((parent, view, pos, id) -> {
             ChapterItem ci = items.get(pos);
+            if (getActivity() instanceof MainMangaActivity) {
+                MainMangaActivity main = (MainMangaActivity) getActivity();
+                main.findViewById(R.id.btn_preview).setSelected(true);
+                main.findViewById(R.id.btn_episodes).setSelected(false);
+                main.findViewById(R.id.btn_recommend).setSelected(false);
+                main.updateHeaderImage(main.currentMangaId);
+            }
             PreviewFragment pf = PreviewFragment.newInstance(ci.chapterId);
             ((FragmentActivity) requireContext()).getSupportFragmentManager()
                     .beginTransaction()
