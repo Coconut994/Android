@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.MotionEvent;
@@ -236,18 +237,27 @@ public class SignUp extends AppCompatActivity {
         // 6. icon eye trong password
         edt_password.setOnTouchListener((v, event) -> {
             final int DRAWABLE_RIGHT = 2;
+
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (event.getRawX() >= (edt_password.getRight() - edt_password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                    if (edt_password.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-                        // Hiện mật khẩu
-                        edt_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                        edt_password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eye_open, 0);
+                // Kiểm tra xem người dùng có chạm vào icon bên phải không
+                if (event.getRawX() >= (edt_password.getRight()
+                        - edt_password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+
+                    // Nếu đang ở trạng thái ẩn mật khẩu (tức có PasswordTransformationMethod)
+                    if (edt_password.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                        // Hiện mật khẩu: bỏ transformation, để text hiển thị bình thường
+                        edt_password.setTransformationMethod(null);
+                        edt_password.setCompoundDrawablesWithIntrinsicBounds(
+                                0, 0, R.drawable.eye_open, 0);
                     } else {
-                        // Ẩn mật khẩu
-                        edt_password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        edt_password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eye_close, 0);
+                        // Ẩn mật khẩu: áp dụng lại PasswordTransformationMethod
+                        edt_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        edt_password.setCompoundDrawablesWithIntrinsicBounds(
+                                0, 0, R.drawable.eye_close, 0);
                     }
-                    edt_password.setSelection(edt_password.length()); // Giữ con trỏ ở cuối
+
+                    // Giữ con trỏ ở cuối
+                    edt_password.setSelection(edt_password.length());
                     return true;
                 }
             }
@@ -255,18 +265,27 @@ public class SignUp extends AppCompatActivity {
         });
         edt_re_pass.setOnTouchListener((v, event) -> {
             final int DRAWABLE_RIGHT = 2;
+
             if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (event.getRawX() >= (edt_re_pass.getRight() - edt_re_pass.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                    if (edt_re_pass.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-                        // Hiện mật khẩu
-                        edt_re_pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                        edt_re_pass.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eye_open, 0);
+                // Kiểm tra xem người dùng có chạm vào drawable icon bên phải không
+                if (event.getRawX() >= (edt_re_pass.getRight()
+                        - edt_re_pass.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+
+                    // Nếu đang ẩn mật khẩu (đang dùng PasswordTransformationMethod)
+                    if (edt_re_pass.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                        // Hiện mật khẩu: loại bỏ transformation method
+                        edt_re_pass.setTransformationMethod(null);
+                        edt_re_pass.setCompoundDrawablesWithIntrinsicBounds(
+                                0, 0, R.drawable.eye_open, 0);
                     } else {
-                        // Ẩn mật khẩu
-                        edt_re_pass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        edt_re_pass.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.eye_close, 0);
+                        // Ẩn mật khẩu: dùng PasswordTransformationMethod
+                        edt_re_pass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                        edt_re_pass.setCompoundDrawablesWithIntrinsicBounds(
+                                0, 0, R.drawable.eye_close, 0);
                     }
-                    edt_re_pass.setSelection(edt_re_pass.length()); // Giữ con trỏ ở cuối
+
+                    // Giữ con trỏ ở cuối
+                    edt_re_pass.setSelection(edt_re_pass.length());
                     return true;
                 }
             }
